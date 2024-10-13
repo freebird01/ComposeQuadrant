@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,7 +21,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,7 +40,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ComposeQuadrantScreen()
+                    ComposeQuadrantScreenFinal()
                 }
             }
         }
@@ -44,70 +48,70 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ComposeQuadrantScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(0.5f).fillMaxHeight(0.5f).padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                text = "Text composable",
+fun ComposeQuadrantScreenFinal() {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(modifier = Modifier.weight(1f)) {
+            ComposeInnerCard(
+                title = stringResource(R.string.text_composable),
+                text = stringResource(R.string.text_composable_text),
+                backgroundColor = Color(0xFFEADDFF),
+                modifier = Modifier.weight(1f)
             )
-            Text(
-                text = "Displays text and follows the recommended Material Design guidelines.",
-                textAlign = TextAlign.Justify
-            )
-        }
-        Column(
-            modifier = Modifier.fillMaxWidth(0.5f).fillMaxHeight(0.5f).offset(x = 196.dp).padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "Image composable",
-            )
-            Text(
-                text = "Creates a composable that lays out and draws a given Painter class object.",
-                textAlign = TextAlign.Justify
+            ComposeInnerCard(
+                title = stringResource(R.string.image_composable),
+                text = stringResource(R.string.image_composable_text),
+                backgroundColor = Color(0xFFD0BCFF),
+                modifier = Modifier.weight(1f)
             )
         }
-        Column (
-            modifier = Modifier.fillMaxWidth(0.5f).fillMaxHeight(0.5f).offset(y = 425.dp).padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            Text(
-                text = "Row composable",
+        Row(modifier = Modifier.weight(1f)) {
+            ComposeInnerCard(
+                title = stringResource(R.string.row_composable),
+                text = stringResource(R.string.row_composable_text),
+                backgroundColor = Color(0xFFB69DF8),
+                modifier = Modifier.weight(1f)
             )
-            Text(
-                text = "A layout composable that places its children in a horizontal sequence.",
-                textAlign = TextAlign.Justify
-            )
-        }
-        Column (
-            modifier = Modifier.fillMaxWidth(0.5f).fillMaxHeight(0.5f).offset(x = 196.dp, y = 425.dp).padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "Column composable",
-            )
-            Text(
-                text = "A layout composable that places its children in a vertical sequence.",
-                textAlign = TextAlign.Justify
+            ComposeInnerCard(
+                title = stringResource(R.string.column_composable),
+                text = stringResource(R.string.column_composable_text),
+                backgroundColor = Color(0xFFF6EDFF),
+                modifier = Modifier.weight(1f)
             )
         }
     }
+}
 
+@Composable
+fun ComposeInnerCard(
+    title: String,
+    text: String,
+    backgroundColor: Color,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .background(backgroundColor)
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = title,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 16.dp),
+        )
+        Text(
+            text = text,
+            textAlign = TextAlign.Justify
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     ComposeQuadrantTheme {
-        ComposeQuadrantScreen()
+        ComposeQuadrantScreenFinal()
     }
 }
